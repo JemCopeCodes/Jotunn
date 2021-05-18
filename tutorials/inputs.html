@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Custom Inputs </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Inputs ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-inputs">Custom Inputs</h1>
+
+<p>Custom inputs can be registered through the <a class="xref" href="../api/Jotunn.Managers.InputManager.html">InputManager</a> singleton.</p>
+<h2 id="example">Example</h2>
+<p>First, within <code>Awake</code> in your mod class, call a method to create and add all your custom key bindings to the <a class="xref" href="../api/Jotunn.Managers.InputManager.html">InputManager</a>. You can have key bindings defined &quot;on the fly&quot; which binds a specific key to an artificial button name. To be more versatile you can have the custom binding be defined in a configuration file and let the user change it to his preference. In our <a href="https://github.com/Valheim-Modding/JotunnModExample">JotunnModExample</a> we have both options implemented like this:</p>
+<pre><code class="lang-cs">// Add custom key bindings
+private void AddInputs()
+{
+    // Add key bindings on the fly
+    InputManager.Instance.AddButton(PluginGUID, &quot;JotunnModExample_Menu&quot;, KeyCode.Insert);
+
+    // Add key bindings backed by a config value
+    // Create a ButtonConfig to also add it as a custom key hint in AddClonedItems
+    evilSwordSpecial = new ButtonConfig
+    {
+        Name = &quot;EvilSwordSpecialAttack&quot;,
+        Key = (KeyCode)Config[&quot;Client config&quot;, &quot;EvilSwordSpecialAttack&quot;].BoxedValue,
+        HintToken = &quot;$evilsword_beevil&quot;
+    };
+    InputManager.Instance.AddButton(PluginGUID, evilSwordSpecial);
+}
+</code></pre><p>Now, to use our input, we can use the <code>ZInput</code> class provided by Valheim.</p>
+<p>Note that <code>AddButton</code> takes your PluginGUID as the first parameter. For now this is how Jötunn tries to avoid conflicts between multiple plugins which might bind the same key. This is still a workaround and will be adressed in future Jötunn releases.</p>
+<pre><code class="lang-cs">// Called every frame
+private void Update()
+{
+    // Since our Update function in our BepInEx mod class will load BEFORE Valheim loads,
+    // we need to check that ZInput is ready to use first.
+    if (ZInput.instance != null)
+    {
+        // Check if our button is pressed. This will only return true ONCE, right after our button is pressed.
+        // If we hold the button down, it won&#39;t spam toggle our menu.
+        if (ZInput.GetButtonDown(&quot;JotunnModExample_Menu&quot;))
+        {
+            showGUI = !showGUI;
+        }
+
+        // Use the name of the ButtonConfig to identify the button pressed
+        if (ZInput.GetButtonDown(evilSwordSpecial.Name) &amp;&amp; MessageHud.instance.m_msgQeue.Count == 0)
+        {
+            MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, &quot;$evilsword_beevilmessage&quot;);
+        }
+    }
+}
+</code></pre><h2 id="custom-keyhints">Custom KeyHints</h2>
+<p>Key hints are displayed in Valheim when you equip weapons or tools to show which keys execute a certain action. With Jötunn you can add your own key hints for your custom weapons and tools by the means of the same ButtonConfig class you can use to define custom key bindings. You need to create a <a class="xref" href="../api/Jotunn.Configs.KeyHintConfig.html">KeyHintConfig</a> with one or more instances of <a class="xref" href="../api/Jotunn.Configs.ButtonConfig.html">ButtonConfig</a> in it. In our <a href="https://github.com/Valheim-Modding/JotunnModExample">JotunnModExample</a> we use the custom key bindings from the EvilSword to display a key hint for it and also override vanilla Valheim key hint messages. </p>
+<p>Note the use of the special Axis &quot;Mouse ScrollWheel&quot; to override the Valheim scroll icon text.</p>
+<pre><code class="lang-cs">// Implementation of key hints replacing vanilla keys and using custom keys
+private void KeyHintsEvilSword()
+{
+    // Create custom KeyHints for the item
+    KeyHintConfig KHC = new KeyHintConfig
+    {
+        Item = &quot;EvilSword&quot;,
+        ButtonConfigs = new[]
+        {
+            // Override vanilla &quot;Attack&quot; key text
+            new ButtonConfig { Name = &quot;Attack&quot;, HintToken = &quot;$evilsword_shwing&quot; },
+            // New custom input
+            evilSwordSpecial,
+            // Override vanilla &quot;Mouse ScrollWheel&quot; text
+            new ButtonConfig { Name = &quot;Scroll&quot;, Axis = &quot;Mouse ScrollWheel&quot;, HintToken = &quot;$evilsword_scroll&quot; }
+        }
+    };
+    GUIManager.Instance.AddKeyHint(KHC);
+}
+</code></pre><p>The resulting KeyHints look like this</p>
+<p><img src="../Documentation/images/data/EvilSwordKeyHints.png" alt="Custom Key Hints"></p>
+<p>Note that all texts are tokenized and translated ingame. The translations are also provided by Jötunn. Read the <a href="localization.html">tutorial on Localizations</a> for more information on that topic.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Documentation/tutorials/inputs.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

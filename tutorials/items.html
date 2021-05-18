@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Items </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Items ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="items">Items</h1>
+
+<p>Valheim items can be equipment, resources, or building pieces. In this tutorial you will learn how to set up custom items within the game, either based upon existing assets, or through the creation of entirely custom assets.</p>
+<p><strong>Note</strong>: This example requires <a href="asset-loading.html">assets</a> to be loaded, as well as <a href="localization.html">localizations</a>.</p>
+<h2 id="cloning-existing-prefabs">Cloning existing prefabs</h2>
+<p>In this example, we will clone a resource and a weapon which the use may equip. In order to do this, we will need to reference already instantiated game assets. One method of doing so is by using the event provided by Jotunn, the event is fired when the vanilla items are in memory and thus clonable :</p>
+<pre><code class="lang-cs">private voic Awake()
+{
+    ItemManager.OnVanillaItemsAvailable += AddClonedItems;
+}
+</code></pre><p>First we use the <a class="xref" href="../api/Jotunn.Entities.CustomItem.html">CustomItem</a> constructor to define the name of our item, and the existing prefab name which it should be cloned from. The item can be immediately added via the <a class="xref" href="../api/Jotunn.Managers.ItemManager.html#Jotunn_Managers_ItemManager_AddItem_Jotunn_Entities_CustomItem_">AddItem</a> method, and then modified to make our clone a little bit more unique.</p>
+<pre><code class="lang-cs">private void AddClonedItems()
+{
+    // Create and add a custom item based on SwordBlackmetal
+    CustomItem CI = new CustomItem(&quot;EvilSword&quot;, &quot;SwordBlackmetal&quot;);
+    ItemManager.Instance.AddItem(CI);
+
+    // Replace vanilla properties of the custom item
+    var itemDrop = CI.ItemDrop;
+    itemDrop.m_itemData.m_shared.m_name = &quot;$item_evilsword&quot;;
+    itemDrop.m_itemData.m_shared.m_description = &quot;$item_evilsword_desc&quot;;
+
+    // Create and add a recipe for the copied item
+    recipeEvilSword(itemDrop);
+
+    // You want that to run only once, Jotunn has the item cached for the game session
+    ItemManager.OnVanillaItemsAvailable -= AddClonedItems;
+}
+</code></pre><p>If we load up the game, type <code>devcommands</code> into the console(F5), and <code>spawn EvilSword</code> we can now see that we have a new item available to us:</p>
+<p> <img src="../Documentation/images/data/customClonedItemHover.png" alt="Custom Cloned Item Hover">
+ <img src="../Documentation/images/data/customClonedItemPickup.png" alt="Custom Cloned Item Pickup"> </p>
+<p>As you may notice, our item does not hold the display text we might prefer. In order to resolve this you can read our <a href="localization.html">localization</a> tutorial.</p>
+<h3 id="item-recipes">Item Recipe&#39;s</h3>
+<p>In this example, we create a method named recipeEvilSword which adds a new crafting bench recipe for our custom item. In particular, this recipe includes a custom resource. We will use the native <code>Recipe</code> object and instantiate a new instance, and then define some basic properties of the recipe, such as the item which it produces, the piece where it can be crafted, and the resources required to craft the product. You will notice that before we add our native recipe that we wrap it inside of a <a class="xref" href="../api/Jotunn.Entities.CustomRecipe.html">CustomRecipe</a>. This wrapper is mostly to facilitate Jötunn&#39;s FixReferences for prefabs which include <a href="asset-mocking.html">mock references</a> but does not really have any affect for this specific scenario. Notice both fixRef params are set to false, this is because we will use the <a class="xref" href="../api/Jotunn.Managers.PrefabManager.html#Jotunn_Managers_PrefabManager_GetPrefab_System_String_">PrefabManager&#39;s</a> cache to acquire a reference to native assets such as the crafting bench, and required resources to define the recipe&#39;s conditions.</p>
+<pre><code class="lang-cs">private static void RecipeEvilSword(ItemDrop itemDrop)
+{
+    // Create and add a recipe for the copied item
+    Recipe recipe = ScriptableObject.CreateInstance&lt;Recipe&gt;();
+    recipe.name = &quot;Recipe_EvilSword&quot;;
+    recipe.m_item = itemDrop;
+    recipe.m_craftingStation = PrefabManager.Cache.GetPrefab&lt;CraftingStation&gt;(&quot;piece_workbench&quot;);
+    recipe.m_resources = new Piece.Requirement[]
+    {
+            new Piece.Requirement()
+            {
+                m_resItem = PrefabManager.Cache.GetPrefab&lt;ItemDrop&gt;(&quot;Stone&quot;),
+                m_amount = 1
+            },
+            new Piece.Requirement()
+            {
+                m_resItem = PrefabManager.Cache.GetPrefab&lt;ItemDrop&gt;(&quot;CustomWood&quot;),
+                m_amount = 1
+            }
+    };
+
+    // Since we got the prefabs from the cache, no referencing is needed
+    CustomRecipe CR = new CustomRecipe(recipe, fixReference: false, fixRequirementReferences: false);
+    ItemManager.Instance.AddRecipe(CR);
+}
+</code></pre><h2 id="instantiating-items-from-prefabs-recipeconfigs">Instantiating items from prefabs, RecipeConfig&#39;s</h2>
+<p>In the previous examples we saw that its possible to easily clone existing items and customise our recipe&#39;s required for the items, however these examples are rather verbose, and requires a fair amount of setup. In order to better facilitate configurations such as these, we have introduced <code>*Config</code> abstractions such as the <a class="xref" href="../api/Jotunn.Configs.RecipeConfig.html">RecipeConfig</a> and <a class="xref" href="../api/Jotunn.Configs.RequirementConfig.html">RequirementConfig</a>, which exposes common properties such as the ItemDrop, CraftingStation, and Resources.</p>
+<p>Similarly in this example instead of cloning our prefabs, we are just going to import a custom prefab directly from an asset bundle, which is exceedingly convenient using Jötunn&#39;s asset loading helpers:</p>
+<pre><code class="lang-cs">private void CreateBlueprintRune()
+{
+    // Create and add a custom item
+    // CustomItem can be instantiated with an AssetBundle and will load the prefab from there
+    CustomItem rune = new CustomItem(BlueprintRuneBundle, &quot;BlueprintRune&quot;, false);
+    ItemManager.Instance.AddItem(rune);
+
+    // Create and add a recipe for the custom item
+    CustomRecipe runeRecipe = new CustomRecipe(new RecipeConfig()
+    {
+        Item = &quot;BlueprintRune&quot;,
+        Amount = 1,
+        Requirements = new RequirementConfig[]
+        {
+            new RequirementConfig {Item = &quot;Stone&quot;, Amount = 1}
+        }
+    });
+    ItemManager.Instance.AddRecipe(runeRecipe);
+}
+</code></pre><p><img src="../Documentation/images/data/blueprintRuneItem.png" alt="Blueprint Rune Item"> <img src="../Documentation/images/data/blueprintRecipeConfig.png" alt="Blueprint Recipe Config"></p>
+<p>We have now added two custom items, both of which can be equipped, as well as a custom resource which is used to create items. This concludes the items tutorial. <a href="overview.html">Go back to the index</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Documentation/tutorials/items.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tutorials </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tutorials ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tutorials">Tutorials</h1>
+
+<p>This section covers the main interfaces we provide with the library, enabling developers to easily interact with items, recipes, pieces, skills, UI, entities, and much more. It is suggested to begin with <a href="../guides/guide.html">getting started</a> before proceeding with the tutorials.</p>
+<div class="NOTE"><h5>Note</h5><p>All custom data that is registered (prefabs, items, recipes) will automatically be saved and loaded by the game on logout/reload, and will persist across game sessions as long as the mods are still installed.  </p>
+</div>
+<div class="WARNING"><h5>Warning</h5><p>If either modded characters or worlds are loaded <em><strong>without</strong></em> the mods installed, you may lose your modded items on that character/world, or it may produce undefined behaviour. I wouldn&#39;t recommend trying this on a character/world you care deeply about.</p>
+</div>
+<p>Each section will have examples showing how this is done. All of the examples shown are published in the <a href="https://github.com/Valheim-Modding/JotunnModExample">Example Mod</a>, available in our <a href="https://github.com/Valheim-Modding">GitHub repo</a>.</p>
+<h2 id="quick-guide">Quick guide</h2>
+<h3 id="asset-creationasset-creationmd-create-new-assets-with-unity-and-prepare-them-to-be-imported-into-valheim-using-jotunnlib"><a href="asset-creation.html">Asset Creation</a>: Create new Assets with Unity and prepare them to be imported into Valheim using JotunnLib.</h3>
+<h3 id="asset-loadingasset-loadingmd-load-assets-into-your-plugin-using-jotunnlib"><a href="asset-loading.html">Asset Loading</a>: Load Assets into your plugin using JotunnLib.</h3>
+<h3 id="asset-mockingasset-mockingmd-duplicate-and-modify-assets-without-the-need-to-include-copyrighted-content-in-your-plugin"><a href="asset-mocking.html">Asset Mocking</a>: Duplicate and modify Assets without the need to include copyrighted content in your plugin.</h3>
+<h3 id="custom-itemsitemsmd-create-equipment-and-resources"><a href="items.html">Custom Items</a>: Create equipment and resources.</h3>
+<h3 id="custom-piecespiecesmd-create-building-pieces"><a href="pieces.html">Custom Pieces</a>: Create building pieces.</h3>
+<h3 id="custom-recipesrecipesmd-create-building-pieces"><a href="recipes.html">Custom Recipes</a>: Create building pieces.</h3>
+<h3 id="custom-status-effectsstatus-effectsmd-add-custom-status-effects"><a href="status-effects.html">Custom Status Effects</a>: Add custom Status Effects.</h3>
+<h3 id="custom-item-conversionsitem-conversionsmd-add-custom-item-conversions-like-the-cooking-of-meat-or-the-smelting-of-ores"><a href="item-conversions.html">Custom Item Conversions</a>: Add custom item conversions like the cooking of meat or the smelting of ores.</h3>
+<h3 id="custom-skillsskillsmd-add-custom-trainable-skills"><a href="skills.html">Custom Skills</a>: Add custom trainable Skills.</h3>
+<h3 id="custom-console-commandsconsole-commandsmd-add-custom-commands-to-the-console-that-can-execute-your-methods"><a href="console-commands.html">Custom Console Commands</a>: Add custom commands to the Console that can execute your methods.</h3>
+<h3 id="ui-elementsguimd-add-custom-windows-and-ui-elements"><a href="gui.html">UI Elements</a>: Add custom windows and UI elements.</h3>
+<h3 id="localizationslocalizationmd-create-language-tokens-that-are-replaced-at-runtime-by-their-specified-localization"><a href="localization.html">Localizations</a>: Create language tokens that are replaced at runtime by their specified localization.</h3>
+<h3 id="reordering-bonesbonereordermd-reoder-and-preserve-bone-order-so-player-attached-objects-preserve-their-position"><a href="bonereorder.html">Reordering Bones</a>: Reoder and preserve bone order so player attached objects preserve their position.</h3>
+<h3 id="network-compatibilitynetworkcompatibilitymd-make-sure-that-clients-are-running-compatible-versions-of-the-plugin-and-its-assets"><a href="networkcompatibility.html">Network Compatibility</a>: Make sure that clients are running compatible versions of the plugin and it&#39;s assets.</h3>
+<h3 id="config-syncconfigmd-ensures-the-synchronization-of-plugin-config-files-between-server-and-client"><a href="config.html">Config Sync</a>: Ensures the synchronization of plugin config files between server and client.</h3>
+<h3 id="inputsinputsmd-register-custom-inputs-and-add-key-hints-to-your-custom-items"><a href="inputs.html">Inputs</a>: Register custom inputs and add key hints to your custom items.</h3>
+<h3 id="jsonhttpsgithubcommhallinsimplejsonnet-jvl-integrates-the-mit-licensed-simplejson-accessible-via-its-namespace"><a href="https://github.com/mhallin/SimpleJSON.NET">JSON</a>: JVL integrates the MIT licensed SimpleJSON, accessible via its namespace.</h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Documentation/tutorials/overview.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

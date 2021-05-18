@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Mock References </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Mock References ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="mock-references">Mock References</h1>
+
+<p>What are mock references? What do they do? What do they solve?</p>
+<p>Mock&#39;s are placeholder objects which you create inside of asset bundles, and prepend the specific <code>JVLmock_</code> prefix to the name of an already existing prefab. When we load our assets at runtime, any references to mock objects will be recursively resolved until a depth of 3. When resolving references, we iterate through scene objects attempting to match our objects name with an existing one in the scene, and then duplicate the asset such that we may use it for our own purposes, without needing to copy copyrighted content within our own custom assets! Neat right?! And better yet, we don&#39;t even need to code anything ourselves to do this, just make sure that you set the fixRef bool on any <code>Custom*</code> entities to true and the mock reference will automatically be resolved at runtime.</p>
+<h2 id="faked-objects">Faked objects</h2>
+<p>We&#39;ll start by creating a folder that will hold all our mocks, let&#39;s call it <code>Mock</code>, we now want to drag and drop the existing asset from the ripped game project to our custom item project. Let&#39;s do that for the Harpooned Status Effect, you should end up with the Harpooned <code>ScriptableObject</code> asset like this :</p>
+<p><img src="https://i.imgur.com/sS7rsTP.png" alt="Copied Asset"></p>
+<p>Now we want to fix the script references like so</p>
+<p><img src="https://i.imgur.com/IFUpPuN.png" alt="Fix the Script Ref"></p>
+<p>Be sure to <strong>fix the script references for all items that you&#39;ve brought into the new project</strong> including ItemDrop, etc.</p>
+<p>We also want to prefix the asset name with <code>JVLmock_</code> so we now we end up with an asset called <code>JVLmock_Harpooned</code></p>
+<p>One last thing, we need to tell JVL to fix the references for us, for that, when creating the instance of our <code>CustomItem</code> in code, we want to have the FixReference parameter set to true, like so : </p>
+<pre><code class="lang-cs">CustomItem = new CustomItem(AssetHelper.LeadPrefab, fixReference : true);
+</code></pre><p>Good, we now have our mock and we can use it for reference in our ItemDrop component ! That was easy.</p>
+<p><code>Attack Projectile</code>, the <code>SharedData</code> can also reference an attack projectile, and we happen to want one here, but this time we want it a bit modified, I only want the <code>trail</code>, without the <code>fangspear</code> in its GameObject hierarchy, we could hack it up directly from the Unity Project, but I found it easier to do from code, so let&#39;s do that here :</p>
+<p><a href="https://github.com/xiaoxiao921/Lead/blob/master/Lead/Util/AssetHelper.cs#L28">The relevant piece of code</a></p>
+<p>We use the <a class="xref" href="../api/Jotunn.Managers.ItemManager.html#Jotunn_Managers_ItemManager_OnItemsRegistered">OnItemsRegistered</a> event subscription provided by JVL. OnItemsRegistered is fired once after the <code>ObjectDB</code> is has loaded all its native AND custom assets. That&#39;s perfect for us ! We want to do this just once : clone the prefab, so that we don&#39;t modify the original, remove the GameObject in the hierarchy that we don&#39;t want, and then we do the <code>m_attackProjectile assignment</code>.</p>
+<p>If you have been following the Unity Asset Creation guide, you can return back to where you left off <a href="asset-creation.html#assetbundle">here</a>.</p>
+<h2 id="referencing-native-assets-from-within-an-asset">Referencing native assets from within an asset</h2>
+<p><strong>Note</strong>: This example requires <a href="asset-loading.html">assets</a> to be loaded, as well as <a href="localization.html">localizations</a>.</p>
+<p>As well as mocking assets to use for referencing, it is also possible to reference native assets from within an asset. The Recursive Reference Resolver will dig through children of an asset, querying for any prefabs with the <code>JVLmock_</code> prefix, it will strip the prefix and then try to resolve the name to an existing asset.</p>
+<p>Bellow you can see that we have a custom item, and we want to reference the native particle effect that exists in valheim. To do so, we create a new material, set the name to <code>JVLmock_item_particle</code>, and then reference this new material in the asset. There is no need to configure the material itself, only the particle system renderer.</p>
+<p><img src="../Documentation/images/data/assetMockReference.png" alt="Asset Mock Reference"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Documentation/tutorials/asset-mocking.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

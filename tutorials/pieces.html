@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Pieces, Tables, and Tabs </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Pieces, Tables, and Tabs ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="pieces-tables-and-tabs">Pieces, Tables, and Tabs</h1>
+
+<h5 id="note-this-example-requires-assetsasset-loadingmd-to-be-loaded-as-well-as-localizationslocalizationmd">Note: <em>This example requires <a href="asset-loading.html">assets</a> to be loaded, as well as <a href="localization.html">localizations</a>.</em></h5>
+<h2 id="tables--tabs">Tables &amp; Tabs</h2>
+<p>PieceTables can be associated with items such as Hammer, Cultivator, and Hoe. Each have their own set of categories which can act as tabs to organise content within a certain PieceTable. </p>
+<p>TODO: prefab component requirement description</p>
+<p>see: <a href="xref:Jotunn.Managers.PieceManager.AddPieceTable(UnityEngine.GameObject)">AddPieceTable</a></p>
+<pre><code class="lang-cs">PieceManager.Instance.AddPieceTable(BlueprintRuneBundle.LoadAsset&lt;GameObject&gt;(&quot;_BlueprintPieceTable&quot;));
+</code></pre><p>Tabs/Categories are something we are looking to provide interfaces and abstractions for in our v1.1 release, so key an eye out for any updates from JVL.</p>
+<h2 id="pieces">Pieces</h2>
+<p><em>Pieces</em> in Valheim are anything that can be built in the game, through means such as the Hammer, Cultivator, or Hoe. This includes things such as plant sapplings, the workbench, and walls. Custom pieces are handled by the <a class="xref" href="../api/Jotunn.Managers.PieceManager.html">PieceManager</a> singleton.  </p>
+<p><strong>Note:</strong> You <strong>must</strong> only use names of existing prefabs (either ones you created or default Valheim ones). This can be prefabs that have already been registered by another mod, or that already exist in the game.  </p>
+<p>In order for a prefab to be a <em>piece</em>, it must have the <code>Piece</code> component attached to the prefab.</p>
+<h3 id="empty-piece-example">&quot;Empty piece&quot; example</h3>
+<p>In this example we will create a stubbed piece to act as a demonstration for the minimal implementation for pieces, which will allow a piece to be selected and placed into the environment as a networked object. We add the <a class="xref" href="../api/Jotunn.Entities.CustomPiece.html">CustomPiece</a> via the <a class="xref" href="../api/Jotunn.Managers.PieceManager.html#Jotunn_Managers_PieceManager_AddPiece_Jotunn_Entities_CustomPiece_">PieceManager</a>.</p>
+<pre><code class="lang-cs">private void AddEmptyItems()
+{
+    CustomPiece CP = new CustomPiece(&quot;$piece_lul&quot;, &quot;Hammer&quot;);
+    var piece = CP.Piece;
+    piece.m_icon = testSprite;
+    var prefab = CP.PiecePrefab;
+    prefab.GetComponent&lt;MeshRenderer&gt;().material.mainTexture = testTex;
+    PieceManager.Instance.AddPiece(CP);
+}
+</code></pre><p><img src="../Documentation/images/data/pieceStub.png" alt="Piece Stub"> <img src="../Documentation/images/data/pieceStubPlaced.png" alt="Piece Stub Placed"></p>
+<h3 id="blueprint-rune-from-prefabs-using-piececonfigs"><code>Blueprint Rune</code> from prefabs using PieceConfigs</h3>
+<p>The Blueprint rune, a custom item one of our developers has been working on, is intended to duplicate existing structures. In order to keep this example simple, we are not including this functionality, but are utilising these assets to provide an example of loading pieces via prefabs, so please bear in mind that while the code bellow is perfectly functional, there is no mesh/model associated with the following pieces due to the nature of their intended function.</p>
+<p>With that said, we will load two new pieces into the previously created blueprint piecetable. In order to better facilitate creation of pieces we have introduced the abstractions of <a class="xref" href="../api/Jotunn.Configs.PieceConfig.html">PieceConfig&#39;s</a> and <a class="xref" href="../api/Jotunn.Configs.RequirementConfig.html">RequirementConfig</a>. These allow us to quickly and easily define common properties for pieces, such as the table they belong too, any restrictions or resources required.</p>
+<pre><code class="lang-cs">private void CreateRunePieces()
+{
+    // Create and add custom pieces
+    var makebp_prefab = BlueprintRuneBundle.LoadAsset&lt;GameObject&gt;(&quot;make_blueprint&quot;);
+    var makebp = new CustomPiece(makebp_prefab,
+        new PieceConfig
+        {
+            PieceTable = &quot;_BlueprintPieceTable&quot;
+        });
+    PieceManager.Instance.AddPiece(makebp);
+
+    var placebp_prefab = BlueprintRuneBundle.LoadAsset&lt;GameObject&gt;(&quot;piece_blueprint&quot;);
+    var placebp = new CustomPiece(placebp_prefab,
+        new PieceConfig
+        {
+            PieceTable = &quot;_BlueprintPieceTable&quot;,
+            AllowedInDungeons = true,
+            Requirements = new[]
+            {
+                new RequirementConfig { Item = &quot;Wood&quot;, Amount = 2 }
+            }
+        });
+    PieceManager.Instance.AddPiece(placebp);
+
+    blueprintRuneLocalizations();  // Add localization
+}
+</code></pre><p>And here we have our final results:<br>
+<img src="../Documentation/images/data/BluePrintRunePieceTable.png" alt="Blue Print Rune Piece Table"></p>
+<p>As you can see in the screenshot the name and description are not yet localized. This is done via the <code>blueprintRuneLocalizations()</code> method. To read more about localization/translation head over to the <a href="localization.html">localization tutorial pages</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Documentation/tutorials/pieces.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

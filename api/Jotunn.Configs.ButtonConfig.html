@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ButtonConfig
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ButtonConfig
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Jotunn.Configs.ButtonConfig">
+  
+  
+  <h1 id="Jotunn_Configs_ButtonConfig" data-uid="Jotunn.Configs.ButtonConfig" class="text-break">Class ButtonConfig
+  </h1>
+  <div class="markdown level0 summary">
+Configuration class for adding custom inputs and custom key hints.<br>
+See <a href="https://docs.unity3d.com/2019.4/Documentation/ScriptReference/Input.html"></a>
+for more information on Unity Input handling.
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ButtonConfig</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Jotunn.Configs.html">Jotunn.Configs</a></h6>
+  <h6><strong>Assembly</strong>: Jotunn.dll</h6>
+  <h5 id="Jotunn_Configs_ButtonConfig_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ButtonConfig</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_Axis.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.Axis%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L21">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_Axis_" data-uid="Jotunn.Configs.ButtonConfig.Axis*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_Axis" data-uid="Jotunn.Configs.ButtonConfig.Axis">Axis</h4>
+  <div class="markdown level1 summary">
+Axis string this config should be bound to. If Key and Axis are both set, Axis will be used.<br>
+Use special Axis &quot;Mouse ScrollWheel&quot; to display the scroll icon as the key hint.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Axis { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_HintToken.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.HintToken%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L46">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_HintToken_" data-uid="Jotunn.Configs.ButtonConfig.HintToken*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_HintToken" data-uid="Jotunn.Configs.ButtonConfig.HintToken">HintToken</h4>
+  <div class="markdown level1 summary">
+Token for translating the key hint text.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string HintToken { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_Inverted.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.Inverted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L31">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_Inverted_" data-uid="Jotunn.Configs.ButtonConfig.Inverted*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_Inverted" data-uid="Jotunn.Configs.ButtonConfig.Inverted">Inverted</h4>
+  <div class="markdown level1 summary">
+Should the Axis value be inverted?
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Inverted { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_Key.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.Key%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L26">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_Key_" data-uid="Jotunn.Configs.ButtonConfig.Key*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_Key" data-uid="Jotunn.Configs.ButtonConfig.Key">Key</h4>
+  <div class="markdown level1 summary">
+Unity KeyCode this config should be bound to. If Key and Axis are both set, Axis will be used.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KeyCode Key { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">KeyCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_Name.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L15">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_Name_" data-uid="Jotunn.Configs.ButtonConfig.Name*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_Name" data-uid="Jotunn.Configs.ButtonConfig.Name">Name</h4>
+  <div class="markdown level1 summary">
+Name of the config. Use this to react to the button press bound by this config.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_RepeatDelay.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.RepeatDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L36">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_RepeatDelay_" data-uid="Jotunn.Configs.ButtonConfig.RepeatDelay*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_RepeatDelay" data-uid="Jotunn.Configs.ButtonConfig.RepeatDelay">RepeatDelay</h4>
+  <div class="markdown level1 summary">
+Delay until a constantly pressed key is considered &quot;pressed&quot; again.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float RepeatDelay { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig_RepeatInterval.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig.RepeatInterval%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L41">View Source</a>
+  </span>
+  <a id="Jotunn_Configs_ButtonConfig_RepeatInterval_" data-uid="Jotunn.Configs.ButtonConfig.RepeatInterval*"></a>
+  <h4 id="Jotunn_Configs_ButtonConfig_RepeatInterval" data-uid="Jotunn.Configs.ButtonConfig.RepeatInterval">RepeatInterval</h4>
+  <div class="markdown level1 summary">
+Interval in which the check timer for the repeat delay is decremented.
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float RepeatInterval { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Jotunn.PrefabExtension.html#Jotunn_PrefabExtension_FixReferences_System_Object_">PrefabExtension.FixReferences(Object)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/new/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/apiSpec/new?filename=Jotunn_Configs_ButtonConfig.md&amp;value=---%0Auid%3A%20Jotunn.Configs.ButtonConfig%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Valheim-Modding/Jotunn/blob/f1e2b590e7e3eb1bcceef421a7e523a919fc84c8/JotunnLib/Configs/ButtonConfig.cs/#L10" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+                <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
